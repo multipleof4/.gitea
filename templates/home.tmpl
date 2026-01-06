@@ -1,0 +1,84 @@
+{{template "base/head" .}}
+<div class="page-content home">
+	<div class="ui container">
+		<div class="renox-hero">
+			<div class="renox-art">
+				<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="100" cy="100" r="60" fill="#f0f0f0" stroke="#45b135" stroke-width="2"/>
+					<ellipse cx="100" cy="100" rx="90" ry="20" stroke="#45b135" stroke-width="2" transform="rotate(-15 100 100)"/>
+					<circle cx="130" cy="70" r="8" fill="#45b135"/>
+				</svg>
+			</div>
+			<h1 class="renox-title">Planet Renox</h1>
+			<p class="renox-subtitle">A refined sanctuary for your source code.</p>
+			<div class="renox-actions">
+				{{if .IsSigned}}
+					<a class="ui primary button" href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "explore"}}</a>
+				{{else}}
+					<a class="ui primary button" href="{{AppSubUrl}}/user/login">{{ctx.Locale.Tr "sign_in"}}</a>
+					<a class="ui button" href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "explore"}}</a>
+				{{end}}
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.renox-hero {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 100px 0;
+		text-align: center;
+		background-color: #ffffff;
+	}
+
+	.renox-art {
+		margin-bottom: 2rem;
+		animation: float 6s ease-in-out infinite;
+	}
+
+	.renox-title {
+		font-size: 3.5rem !important;
+		font-weight: 300 !important;
+		color: #1b1c1d;
+		margin-bottom: 0.5rem !important;
+		letter-spacing: -1px;
+	}
+
+	.renox-subtitle {
+		font-size: 1.25rem;
+		color: #6a737d;
+		margin-bottom: 2.5rem;
+		font-weight: 300;
+	}
+
+	.renox-actions .ui.button {
+		padding: 12px 30px;
+		font-weight: 400;
+		border-radius: 8px;
+		transition: all 0.2s ease;
+	}
+
+	.renox-actions .ui.primary.button {
+		background-color: #45b135 !important;
+	}
+
+	.renox-actions .ui.primary.button:hover {
+		background-color: #3d9e2f !important;
+		transform: translateY(-1px);
+	}
+
+	@keyframes float {
+		0% { transform: translateY(0px); }
+		50% { transform: translateY(-15px); }
+		100% { transform: translateY(0px); }
+	}
+
+	/* Force light mode background for this section if Gitea is in dark mode */
+	body:not(.theme-arc-green) .renox-hero {
+		background-color: #ffffff;
+	}
+</style>
+{{template "base/footer" .}}
