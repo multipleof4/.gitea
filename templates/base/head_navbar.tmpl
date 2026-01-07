@@ -1,0 +1,62 @@
+<div class="ui container" id="navbar">
+	<div class="item brand" tabindex="-1">
+		<a href="{{AppSubUrl}}/">
+			<img class="ui mini image" src="{{AssetUrlPrefix}}/img/logo.svg" width="30" height="30" alt="{{ctx.Locale.Tr "logo"}}">
+		</a>
+	</div>
+
+	{{if .IsSigned}}
+		<a class="item {{if .PageIsDashboard}}active{{end}}" href="{{AppSubUrl}}/">{{ctx.Locale.Tr "dashboard"}}</a>
+		<a class="item {{if .PageIsIssues}}active{{end}}" href="{{AppSubUrl}}/issues">{{ctx.Locale.Tr "issues"}}</a>
+		<a class="item {{if .PageIsPulls}}active{{end}}" href="{{AppSubUrl}}/pulls">{{ctx.Locale.Tr "pull_requests"}}</a>
+		{{if not .UnitMilestonesGlobalDisabled}}
+			<a class="item {{if .PageIsMilestones}}active{{end}}" href="{{AppSubUrl}}/milestones">{{ctx.Locale.Tr "milestones"}}</a>
+		{{end}}
+		<a class="item {{if .PageIsExplore}}active{{end}}" href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "explore"}}</a>
+	{{else}}
+		<a class="item {{if .PageIsExplore}}active{{end}}" href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "explore"}}</a>
+	{{end}}
+
+	<div class="right menu">
+		{{if .IsSigned}}
+			<div class="ui dropdown item" id="navbar-right-plus">
+				{{svg "octicon-plus"}}
+				<div class="menu">
+					<a class="item" href="{{AppSubUrl}}/repo/create">{{svg "octicon-plus"}} {{ctx.Locale.Tr "new_repo"}}</a>
+					<a class="item" href="{{AppSubUrl}}/repo/migrate">{{svg "octicon-repo-push"}} {{ctx.Locale.Tr "new_migrate"}}</a>
+					<a class="item" href="{{AppSubUrl}}/org/create">{{svg "octicon-organization"}} {{ctx.Locale.Tr "new_org"}}</a>
+				</div>
+			</div>
+			<div class="ui dropdown item" id="navbar-right-user">
+				<span class="ui borderless image">
+					{{avatar ctx .SignedUser 24}}
+				</span>
+				<div class="menu">
+					<div class="header">
+						{{ctx.Locale.Tr "signed_in_as"}} <strong>{{.SignedUser.Name}}</strong>
+					</div>
+					<div class="divider"></div>
+					<a class="item" href="{{.SignedUser.HomeLink}}">{{svg "octicon-person"}} {{ctx.Locale.Tr "your_profile"}}</a>
+					<a class="item" href="{{.SignedUser.HomeLink}}?tab=stars">{{svg "octicon-star"}} {{ctx.Locale.Tr "your_starred"}}</a>
+					<a class="item" href="{{AppSubUrl}}/user/settings">{{svg "octicon-tools"}} {{ctx.Locale.Tr "your_settings"}}</a>
+					{{if .IsAdmin}}
+						<div class="divider"></div>
+						<a class="item" href="{{AppSubUrl}}/admin">{{svg "octicon-server"}} {{ctx.Locale.Tr "admin_panel"}}</a>
+					{{end}}
+					<div class="divider"></div>
+					<form method="POST" action="{{AppSubUrl}}/user/logout">
+						{{.CsrfTokenHtml}}
+						<button class="item wide" type="submit">
+							{{svg "octicon-sign-out"}} {{ctx.Locale.Tr "sign_out"}}
+						</button>
+					</form>
+				</div>
+			</div>
+		{{else}}
+			{{if .ShowRegistrationButton}}
+				<a class="item {{if .PageIsSignUp}}active{{end}}" href="{{AppSubUrl}}/user/sign_up">{{ctx.Locale.Tr "register"}}</a>
+			{{end}}
+			<a class="item {{if .PageIsSignIn}}active{{end}}" href="{{AppSubUrl}}/user/login?redirect_to={{.CurrentURI}}">{{ctx.Locale.Tr "sign_in"}}</a>
+		{{end}}
+	</div>
+</div>
