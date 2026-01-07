@@ -3,11 +3,10 @@
 	<div class="ui container">
 		<div class="renox-hero">
 			<div class="renox-art">
-				<img src="{{AssetUrlPrefix}}/img/logo.svg" width="200" height="200" alt="Renox Logo">
+				<img src="{{AssetUrlPrefix}}/img/logo.svg?v=2" width="200" height="200" alt="Renox Logo">
 			</div>
 			<h1 class="renox-title">Planet Renox</h1>
 			<p class="renox-subtitle">A refined sanctuary for your source code.</p>
-			<p style="color: #e74c3c; font-family: monospace;">Debug - AssetUrlPrefix: {{AssetUrlPrefix}}</p>
 			<div class="renox-actions">
 				{{if .IsSigned}}
 					<a class="ui primary button" href="{{AppSubUrl}}/explore/repos">{{ctx.Locale.Tr "explore"}}</a>
@@ -47,7 +46,7 @@
 	.renox-subtitle {
 		font-size: 1.25rem;
 		color: #6a737d;
-		margin-bottom: 1rem;
+		margin-bottom: 2.5rem;
 		font-weight: 300;
 	}
 
